@@ -1,31 +1,27 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { useState } from 'react'
 //import axios from "axios";
 import { motion } from 'framer-motion/dist/framer-motion'
 function Signup() {
-  const [color, setColor] = useState("green");
+  const [color, setColor] = useState('green')
   const [data, setData] = useState({
-    username: "",
-    password: "",
-    email: "",
-  });
+    username: '',
+    password: '',
+    email: '',
+  })
 
-  const [error, setError] = useState("Password must be at least 8 parameters");
+  const [error, setError] = useState('Password must be at least 8 parameters')
 
   const handle = (e) => {
-    const newData = { ...data };
-    newData[e.target.id] = e.target.value;
-    setData(newData);
-   // console.log(data);
-  };
+    const newData = { ...data }
+    newData[e.target.id] = e.target.value
+    setData(newData)
+    // console.log(data);
+  }
 
   const submit = async (e) => {
     // e.preventDefault();
-    // const result = await axios.post("https://futa-hostels-10467.herokuapp.com/signUp", {
-    //   username: data.username,
-    //   password: data.password,
-    //   email: data.email,
-    // });
+    // const result = await axios.post("https://futa-hostels-10467.herokuapp.com/signUp", {data});
     // if (result.data === "exist") {
     //   setColor("blue");
     //   setError("User already exist");
@@ -37,23 +33,24 @@ function Signup() {
     //   setColor("red");
     //   setError("Invalid details");
     // }
-  };
+  }
 
   return (
     <motion.div
-    initial = {{opacity: 0 }}
-    animate = {{opacity: 1 }}
-    exit = {{ opacity: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <div className="row">
         <div className="col-sm-12 col-md-3 col-lg-4"></div>
         <div
           className="col-sm-12 col-md-6 col-lg-4"
-          style = {{padding:'150px 50px 50px 50px'}}>
+          style={{ padding: '150px 50px 50px 50px' }}
+        >
           <h4 className="mb-3">Sign Up</h4>
           <form
             onSubmit={(e) => {
-              submit(e);
+              submit(e)
             }}
           >
             <div className="form-group mb-4">
@@ -74,7 +71,7 @@ function Signup() {
                 className="form-control"
               />
             </div>
-        
+
             <div className="form-group mb-2">
               <input
                 onChange={(e) => handle(e)}
@@ -84,9 +81,9 @@ function Signup() {
                 className="form-control"
               />
             </div>
-            <div style={{ fontSize: "10px", marginBottom: "0px" }}>
+            <div style={{ fontSize: '10px', marginBottom: '0px' }}>
               <center>
-                <i style={{ marginBottom: "-1px", color: "red" }}>{error}</i>
+                <i style={{ marginBottom: '-1px', color: 'red' }}>{error}</i>
               </center>
             </div>
             <input
@@ -104,7 +101,7 @@ function Signup() {
         <div className="col-sm-12 col-md-6 col-lg-4"></div>
       </div>
     </motion.div>
-  );
+  )
 }
 
-export default Signup;
+export default Signup
