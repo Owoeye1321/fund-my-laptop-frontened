@@ -20,16 +20,14 @@ function Forms() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    //       const result = await axios.post('https://futa-hostels-10467.herokuapp.com/dashboard',{data})
-    //  if(result.data == "success"){
-    //          alert("Email has been sent successfully to C-rentals official")
-    //       window.location.assign("https://futa-hostel-rentals-c3bf0b.netlify.app/")
-    //      }else{
-    //       console.log('Unable to send email')
-    //       //    alert('An error has occured')
-    //       //    alert('An error has occured')
-
-    //   }
+    await axios
+      .post('/api/contact', { data })
+      .then((result) => {
+        console.log(result.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
   return (
     <>
@@ -46,8 +44,7 @@ function Forms() {
                   <h5>Headquaters</h5>
                   <p>
                     <i className="fal fa-home"></i>
-                    Kwara State University
-                    <br /> Malete
+                    Lagos State, Nigeria
                   </p>
                 </div>
                 <div className="single-info">

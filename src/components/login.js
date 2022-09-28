@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useState } from 'react'
-//import axios from 'axios'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { motion } from 'framer-motion/dist/framer-motion'
 
 function Login() {
@@ -16,26 +16,34 @@ function Login() {
   }
 
   const submit = async (e) => {
-    // e.preventDefault()
-    // const details = {
-    //     username:data.username,
-    //     password:data.password
-    // }
-    // console.log(details)
-    // const response = await axios.post('https://futa-hostels-10467.herokuapp.com/login',{data})
-    // if (response){
-    //     if(response.data === 'invalid')
-    //     {
-    //         setError('invalid details')
-    //         console.log(response.data)
-    //     }
-    //    if (response.data === 'success') {
-    //     sessionStorage.setItem('username',data.username)
-    //             window.location.assign("https://futa-hostel-rentals-c3bf0b.netlify.app/dashboard")
-    //     }
-    // }
+    e.preventDefault()
+    const response = await axios.post('/api/auth/login', { data })
+    if (!response.data) setError('Unable to process data')
+    if (response.data.message === 'success') {
+      localStorage.setItem('accessToken', response.data.accessToken)
+      localStorage.setItem('refreshToken', response.data.refreshToken)
+      window.location.assign('http://localhost:3000/dashboard')
+    } else {
+      setError(response.data.message)
+    }
   }
-
+  useEffect(async () => {
+    const token = localStorage.getItem('accessToken')
+    if (!token) console.log('Unable to get token')
+    await axios
+      .get('/api/read/profile', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((result) => {
+        window.location.assign('http://localhost:3000/dashboard')
+      })
+      .catch((error) => {
+        window.location.assign('http://localhost:3000/login')
+      })
+  }, [])
   return (
     <motion.div
       initial={{ opacity: 0 }}

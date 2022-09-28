@@ -1,0 +1,17 @@
+#titleContent {
+    height: 700px;
+    width: 100%;
+    color: white;
+    overflow: hidden;
+    border-radius: 10px;
+    border:1px solid;
+}
+#readScroll {
+    height: 700px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border:1px solid;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}

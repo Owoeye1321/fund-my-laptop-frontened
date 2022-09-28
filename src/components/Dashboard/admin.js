@@ -1,53 +1,47 @@
 import { React, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import logo from '../../assets/images/how-it-work-thumb.png'
+import Styles from './style.module.css'
 import axios from 'axios'
 
 function Admin() {
-  const [userDetails, setUserDetails] = useState([])
+  const [email, setEmail] = useState()
   const [addHostelDetails, setAddHostelDetails] = useState({
     name: '',
     address: '',
     details: '',
   })
   const [hostelPicture, setHostelPicture] = useState('')
+  const token = localStorage.getItem('accessToken')
+  const refreshToken = localStorage.getItem('refreshToken')
+  const [color, setColor] = useState('red')
+  const [error, setError] = useState('')
+  const [uploads, setUploads] = useState([])
 
-  //// performing some dangerous operation round around the spagetti environment
-  const [pickFirst, setPickFirst] = useState('block')
-  const [pickSecond, setPickSecond] = useState('none')
-  const [pickThird, setPickThird] = useState('block')
-  const [pickFourth, setPickFourth] = useState('none')
-
-  const LogOut = async () => {
-    // const logUserOut = await axios.get(
-    //   'https://futa-hostels-10467.herokuapp.com/logOut',
-    // )
-    // if (logUserOut.data === 'success') {
-    //   sessionStorage.clear()
-    //   window.location.assign(
-    //     'https://futa-hostel-rentals-c3bf0b.netlify.app/login',
-    //   )
-    // }
-  }
   const handleSubmit = async (e) => {
     e.preventDefault()
-    //     console.log(hostelPicture)
-    //     const addForm = new FormData()
-    //     addForm.append('data', JSON.stringify(addHostelDetails))
-    //     addForm.append('file',hostelPicture)
-    //    // console.log(addForm)
-    //     const checkingFormUpdates = await axios.post('https://futa-hostels-10467.herokuapp.com/addHostelDetails',addForm)
-    //     if(checkingFormUpdates.data === 'success'){
-    //       console.log('Hostel information saved successfully')
-    //       alert('Hostel information saved successfully')
-    //     }
+    //console.log(hostelPicture)
+    const addForm = new FormData()
+    addForm.append('data', JSON.stringify(addHostelDetails))
+    addForm.append('file', hostelPicture)
+
+    const checkingFormUpdates = await axios.post(
+      '/api/newUpload/upload',
+      addForm,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    if (checkingFormUpdates.data.message === 'success') setColor('green')
+    setError('Uploaded Details')
   }
 
   const handleChange = (e) => {
     const addNewData = { ...addHostelDetails }
     addNewData[e.target.id] = e.target.value
     setAddHostelDetails(addNewData)
-    //console.log(addHostelDetails)
+    //  console.log(addHostelDetails)
   }
   const addHostelPicture = (e) => {
     let name = e.target.files[0]
@@ -55,25 +49,47 @@ function Admin() {
     //    console.log(hostelPicture)
   }
 
-  useEffect(() => {
-    // alert('hello there i am trying to control the width of the screen')
-    // alert(window.width)
-    // const response = async ()=>{
-    //     let check = await axios.post('https://futa-hostels-10467.herokuapp.com/check',{username:sessionStorage.getItem('username')});
-    //     if(check.data ==='failed') window.location.assign('https://futa-hostel-rentals-c3bf0b.netlify.app/login')
-    //   //  / console.log(check.data)
-    // }
-    // response()
-    //  const fetchAll = async () =>{
-    //   await axios.post('https://futa-hostels-10467.herokuapp.com/read',{username:sessionStorage.getItem('username')}).then((res)=>{
-    //     setUserDetails(res.data)
-    //    // console.log(res.data)
-    //   }).catch((err)=>{
-    //     console.log('An error has occured' , err)
-    //   })
-    //  }
-    //  fetchAll()
-  }, [])
+  useEffect(async () => {
+    await axios
+      .get('/api/read/profile', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(async (result) => {
+        setEmail(result.data)
+        await axios
+          .get('/api/read/personal', {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((innerResult) => {
+            setUploads(innerResult.data)
+          })
+          .catch((InnerError) => {
+            console.log('An error has occured', InnerError)
+          })
+      })
+      .catch(async (error) => {
+        await axios
+          .get('/api/token/refresh', {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          })
+          .then((result) => {
+            localStorage.setItem('accessToken', result.data.message)
+          })
+          .catch((error) => {
+            console.log('A fatal error has occured', error)
+          })
+      })
+  }, [uploads])
+  //console.log(uploads)
   return (
     <>
       <section
@@ -81,22 +97,22 @@ function Admin() {
         style={{ marginTop: '-100px', marginBottom: '-80px' }}
       >
         <div className="row">
-          <div className="col-sm-12 col-md-5 col-lg-4 p-4">
+          <div className="col-sm-12 col-md-4 col-lg-4 p-4">
             <div style={{ width: '100%' }}>
               <div
                 className="min-vh-100 d-flex flex-column opacity-mask"
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}
               >
+                <i className="m-3">{email}</i>
                 <div
-                  className="m-5 bg-white px-5 py-3"
+                  className=" bg-white px-5 py-3"
                   style={{
-                    width: '400px',
+                    width: '90%',
                     alignSelf: 'center',
                     boxShadow: '5px 5px 45px 5px lightgrey',
                     alignItems: 'right',
                   }}
                 >
-                  <h4 className="m-2"></h4>
                   <form
                     onSubmit={(e) => {
                       handleSubmit(e)
@@ -166,12 +182,68 @@ function Admin() {
                       />
                     </div>
                   </form>
+                  <div style={{ fontSize: '15px', marginBottom: '0px' }}>
+                    <>
+                      <i style={{ marginBottom: '-1px', color: color }}>
+                        {error}
+                      </i>
+                    </>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-sm-12 col-md-8 col-lg-8">
-            <h1>Details are posted here</h1>
+          <div
+            className="col-sm-12 col-md-8 col-lg-8 my-4"
+            id={Styles.titleContent}
+          >
+            <div className="row" id={Styles.readScroll}>
+              {uploads.length ? (
+                uploads.map((key) => {
+                  const blob = new Blob([Int8Array.from(key.image.data.data)], {
+                    type: key.image.contentType,
+                  })
+                  const image = window.URL.createObjectURL(blob)
+
+                  return (
+                    <>
+                      <div
+                        className="m-3 col-sm-12 col-md-3 col-lg-3 my-5
+                        service-category-widget "
+                        key={key.id}
+                        style={{
+                          alignContent: 'center',
+                          height: '250px',
+                        }}
+                      >
+                        <div className="service-details-sidebar">
+                          <div className="service-category-widget">
+                            <center>
+                              <img
+                                src={image}
+                                alt="profile Image"
+                                style={{ height: '180px', width: '250px' }}
+                              />
+                            </center>
+                            <p style={{ fontSize: '14px' }}>{key.name}</p>
+                            <p style={{ marginTop: '-10px', fontSize: '10px' }}>
+                              {key.address}
+                            </p>
+                            <p style={{ marginTop: '-10px', fontSize: '12px' }}>
+                              {key.details.slice(0, 30)}...
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )
+                })
+              ) : (
+                <>
+                  <h1>Details are posted here</h1>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </section>

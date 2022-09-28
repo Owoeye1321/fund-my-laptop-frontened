@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useState } from 'react'
-//import axios from "axios";
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { motion } from 'framer-motion/dist/framer-motion'
 function Signup() {
   const [color, setColor] = useState('green')
@@ -20,20 +20,35 @@ function Signup() {
   }
 
   const submit = async (e) => {
-    // e.preventDefault();
-    // const result = await axios.post("https://futa-hostels-10467.herokuapp.com/signUp", {data});
-    // if (result.data === "exist") {
-    //   setColor("blue");
-    //   setError("User already exist");
-    //   console.log(result.data);
-    // }else if(result.data === "success") {
-    //     sessionStorage.setItem('username',data.username)
-    //   window.location.assign("https://futa-hostel-rentals-c3bf0b.netlify.app/dashboard");
-    // } else {
-    //   setColor("red");
-    //   setError("Invalid details");
-    // }
+    e.preventDefault()
+    const result = await axios.post('/api/auth/signup', { data })
+    console.log(result)
+    if (!result.data) setError('Unable to process data')
+    if (result.data.message === 'success') {
+      localStorage.setItem('accessToken', result.data.accessToken)
+      localStorage.setItem('refreshToken', result.data.refreshToken)
+      window.location.assign('http://localhost:3000/dashboard')
+    } else {
+      setError(result.data.message)
+    }
   }
+  useEffect(async () => {
+    const token = localStorage.getItem('accessToken')
+    if (!token) console.log('Unable to get token')
+    await axios
+      .get('/api/read/profile', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((result) => {
+        window.location.assign('http://localhost:3000/dashboard')
+      })
+      .catch((error) => {
+        window.location.assign('http://localhost:3000/login')
+      })
+  }, [])
 
   return (
     <motion.div
