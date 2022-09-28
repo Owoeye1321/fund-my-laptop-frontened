@@ -12,11 +12,12 @@ function HeroHomeEight() {
             <div className="col-sm-12 col-md-6 col-lg-6">
               <div className="appie-hero-content appie-hero-content-8">
                 <h1 className="appie-title">
-                  Raise 5K Fund For<br></br> Gadget Repairs
+                  Raise Fund For<br></br> Gadget Repairs
                 </h1>
                 <p>
-                  This Platform enhances sponsorship for gadget fixing <br></br>
-                  all over the state in Nigeria
+                  This Platform enhances support for gadget fixing with a fixed
+                  amount,<br></br>
+                  all over the State in Nigeria
                 </p>
               </div>
             </div>
