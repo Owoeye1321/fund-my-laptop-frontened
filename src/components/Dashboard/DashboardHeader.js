@@ -3,12 +3,29 @@ import logo from '../../assets/images/how-it-work-thumb.png'
 import StickyMenu from '../../lib/StickyMenu'
 import Navigation from '../Navigation'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 function DashboardHeader({ action }) {
+  const refreshToken = localStorage.getItem('refreshToken')
   useEffect(() => {
     StickyMenu()
   })
-  const logOut = () => {}
+  const logOut = async () => {
+    await axios
+      .get('/api/logout/', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      })
+      .then((result) => {
+        if (result.data === 'success') localStorage.clear()
+        window.location.assign('http://localhost:3000/dashboard')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
   return (
     <>
       <header className="appie-header-area appie-header-8-area appie-sticky">
@@ -35,7 +52,7 @@ function DashboardHeader({ action }) {
                   <a className="login-btn" href="/login">
                     <i className="fal fa-user" /> Login
                   </a>
-                  <Link onClick={logOut()} className="main-btn ml-30">
+                  <Link onClick={() => logOut()} className="main-btn ml-30">
                     LogOut
                   </Link>
                   <div

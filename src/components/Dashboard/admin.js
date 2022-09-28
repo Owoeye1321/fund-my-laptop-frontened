@@ -74,19 +74,7 @@ function Admin() {
           })
       })
       .catch(async (error) => {
-        await axios
-          .get('/api/token/refresh', {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${refreshToken}`,
-            },
-          })
-          .then((result) => {
-            localStorage.setItem('accessToken', result.data.message)
-          })
-          .catch((error) => {
-            console.log('A fatal error has occured', error)
-          })
+        window.location.assign('http://localhost:3000/login')
       })
   }, [uploads])
   //console.log(uploads)

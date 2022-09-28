@@ -30,19 +30,14 @@ function Login() {
   useEffect(async () => {
     const token = localStorage.getItem('accessToken')
     if (!token) console.log('Unable to get token')
-    await axios
-      .get('/api/read/profile', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((result) => {
-        window.location.assign('http://localhost:3000/dashboard')
-      })
-      .catch((error) => {
-        window.location.assign('http://localhost:3000/login')
-      })
+    const check = await axios.get('/api/read/profile', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    if (check.data.message !== 'unauthorized')
+      window.location.assign('http://localhost:3000/dashboard')
   }, [])
   return (
     <motion.div

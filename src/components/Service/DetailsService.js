@@ -10,7 +10,7 @@ function DetailsService() {
       .get('/api/read/all')
       .then((result) => {
         setDetails(result.data.message)
-        console.log(details)
+        //   console.log(details)
       })
       .catch((error) => {
         console.log('An error has occured ', error)
@@ -51,7 +51,7 @@ function DetailsService() {
                           <p style={{ marginTop: '-10px', fontSize: '12px' }}>
                             {key.details.slice(0, 33)}...
                           </p>
-                          <Link className="main-btn" to="#">
+                          <Link className="main-btn" to="/payment">
                             Pay 5,000
                           </Link>
                         </div>
