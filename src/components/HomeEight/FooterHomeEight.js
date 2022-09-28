@@ -1,25 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../../assets/images/about-thumb-5.png';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import logo from '../../assets/images/about-thumb-5.png'
 
 function FooterHomeEight() {
-    return (
-        <>
-            <section className="appie-footer-area appie-footer-about-area appie-footer-8-area">
-                <div className="container">
-                <div className="row">
+  return (
+    <>
+      <section className="appie-footer-area appie-footer-about-area appie-footer-8-area">
+        <div className="container">
+          <div className="row">
             <div className="col-lg-4 col-md-6">
               <div className="footer-about-widget">
                 <div className="logo">
                   <a href="#">
-                  <img src={logo} alt="" style = {{width:'40px', height:'40px'}}/>
-                                    <strong className='mx-3' > Laptop Raise</strong>
-                              </a>
+                    <img
+                      src={logo}
+                      alt=""
+                      style={{ width: '40px', height: '40px' }}
+                    />
+                    <strong className="mx-3"> Laptop Raise</strong>
+                  </a>
                 </div>
-                <p>
-                Laptop Raise is the best platform for Repair Sponsorship
-                </p>
-               
+                <p>Laptop Raise is the best platform for Repair Sponsorship</p>
+
                 <div className="social mt-30">
                   <ul>
                     <li>
@@ -51,18 +53,13 @@ function FooterHomeEight() {
                 <h4 className="title">Company</h4>
                 <ul>
                   <li>
-                    <Link to="/about-us">About Us</Link>
+                    <Link to="/">Home</Link>
                   </li>
                   <li>
                     <Link to="/Service">Service</Link>
                   </li>
                   <li>
                     <Link to="/contact">Contact</Link>
-                  </li>
-                  <li>
-                  <Link to="/view_available_hostels">
-                  Get Started
-                </Link>
                   </li>
                 </ul>
               </div>
@@ -73,19 +70,19 @@ function FooterHomeEight() {
                 <ul>
                   <li>
                     <a href="#">
-                      <i className="fal fa-envelope" /> support@c-rentals.com
+                      <i className="fal fa-envelope" /> Owoeye1321@gmail
                     </a>
                   </li>
                   <li>
-                  <p>
-                                        <i className="fal fa-phone"></i>
-                                        <a href='tel:+2349153464158'>(+234) 915 346 4158</a>
-                                        </p>
+                    <p>
+                      <i className="fal fa-phone"></i>
+                      <a href="tel:+2349153464158">(+234) 915 346 4158</a>
+                    </p>
                   </li>
                   <li>
                     <a href="#">
                       <i className="fal fa-map-marker-alt" />
-                     Kwara State University, Malete
+                      Lagos State,Nigeria
                     </a>
                   </li>
                 </ul>
@@ -96,16 +93,24 @@ function FooterHomeEight() {
             <div className="col-lg-12">
               <div className="footer-copyright d-flex align-items-center justify-content-center pt-35">
                 <div className="copyright-text">
-                  <p>Copyright © 2021 <a href="https://mainstack.me/cyberxurde" style={{color:"black"}}>The Brain box</a>. All rights reserved.</p>
-                  
+                  <p>
+                    Copyright © 2021{' '}
+                    <a
+                      href="https://mainstack.me/cyberxurde"
+                      style={{ color: 'black' }}
+                    >
+                      The Brain box
+                    </a>
+                    . All rights reserved.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-                </div>
-            </section>
-        </>
-    );
+        </div>
+      </section>
+    </>
+  )
 }
 
-export default FooterHomeEight;
+export default FooterHomeEight
