@@ -40,19 +40,19 @@ function Signup() {
   useEffect(async () => {
     const token = localStorage.getItem('accessToken')
     if (!token) console.log('Unable to get token')
-    await axios
-      .get('/api/read/profile', {
+    const check = await axios.get(
+      'https://fund-my-laptop-2001.herokuapp.com/api/read/profile',
+      {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      })
-      .then((result) => {
-        window.location.assign('http://localhost:3000/dashboard')
-      })
-      .catch((error) => {
-        window.location.assign('http://localhost:3000/login')
-      })
+      },
+    )
+    if (check.data.message !== 'unauthorized')
+      window.location.assign(
+        'https://fund-my-laptop-2001.netlify.app/dashboard',
+      )
   }, [])
 
   return (
