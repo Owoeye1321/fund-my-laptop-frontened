@@ -23,8 +23,7 @@ function Forms() {
     await axios
       .post('https://fund-my-laptop-2001.herokuapp.com/api/contact', { data })
       .then((result) => {
-        console.log(result.data)
-        alert('Email sent')
+        if (result.data === 'success') alert('Email sent')
       })
       .catch((error) => {
         console.log(error)
