@@ -24,6 +24,7 @@ function Forms() {
       .post('https://fund-my-laptop-2001.herokuapp.com/api/contact', { data })
       .then((result) => {
         console.log(result.data)
+        alert('Email sent')
       })
       .catch((error) => {
         console.log(error)
