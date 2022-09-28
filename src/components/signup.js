@@ -21,7 +21,10 @@ function Signup() {
 
   const submit = async (e) => {
     e.preventDefault()
-    const result = await axios.post('/api/auth/signup', { data })
+    const result = await axios.post(
+      'https://fund-my-laptop-2001.herokuapp.com/api/auth/signup',
+      { data },
+    )
     console.log(result)
     if (!result.data) setError('Unable to process data')
     if (result.data.message === 'success') {

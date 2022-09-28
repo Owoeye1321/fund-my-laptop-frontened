@@ -24,7 +24,7 @@ function Admin() {
     addForm.append('file', hostelPicture)
 
     const checkingFormUpdates = await axios.post(
-      '/api/newUpload/upload',
+      'https://fund-my-laptop-2001.herokuapp.com/api/newUpload/upload',
       addForm,
       {
         headers: {
@@ -51,7 +51,7 @@ function Admin() {
 
   useEffect(async () => {
     await axios
-      .get('/api/read/profile', {
+      .get('https://fund-my-laptop-2001.herokuapp.com/api/read/profile', {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ function Admin() {
       .then(async (result) => {
         setEmail(result.data)
         await axios
-          .get('/api/read/personal', {
+          .get('https://fund-my-laptop-2001.herokuapp.com/api/read/personal', {
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,

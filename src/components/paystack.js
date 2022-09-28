@@ -8,7 +8,9 @@ function PaystackPayment() {
 
   useEffect(() => {
     const response = async () => {
-      const request = await axios.get('/api/paystack')
+      const request = await axios.get(
+        'https://fund-my-laptop-2001.herokuapp.com/api/paystack',
+      )
       if (request.data) {
         setDetails(request.data)
       }

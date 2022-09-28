@@ -7,7 +7,7 @@ function DetailsService() {
   const token = localStorage.getItem('accessToken')
   useEffect(async () => {
     await axios
-      .get('/api/read/all')
+      .get('https://fund-my-laptop-2001.herokuapp.com/api/read/all')
       .then((result) => {
         setDetails(result.data.message)
         //   console.log(details)

@@ -17,7 +17,10 @@ function Login() {
 
   const submit = async (e) => {
     e.preventDefault()
-    const response = await axios.post('/api/auth/login', { data })
+    const response = await axios.post(
+      'https://fund-my-laptop-2001.herokuapp.com/api/auth/login',
+      { data },
+    )
     if (!response.data) setError('Unable to process data')
     if (response.data.message === 'success') {
       localStorage.setItem('accessToken', response.data.accessToken)
@@ -32,12 +35,15 @@ function Login() {
   useEffect(async () => {
     const token = localStorage.getItem('accessToken')
     if (!token) console.log('Unable to get token')
-    const check = await axios.get('/api/read/profile', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+    const check = await axios.get(
+      'https://fund-my-laptop-2001.herokuapp.com/api/read/profile',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       },
-    })
+    )
     if (check.data.message !== 'unauthorized')
       window.location.assign(
         'https://fund-my-laptop-2001.netlify.app/dashboard',

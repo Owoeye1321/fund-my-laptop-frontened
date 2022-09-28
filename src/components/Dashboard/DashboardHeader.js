@@ -12,7 +12,7 @@ function DashboardHeader({ action }) {
   })
   const logOut = async () => {
     await axios
-      .get('/api/logout/', {
+      .get('https://fund-my-laptop-2001.herokuapp.com/api/logout/', {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${refreshToken}`,
