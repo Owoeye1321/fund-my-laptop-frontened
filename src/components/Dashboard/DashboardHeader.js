@@ -20,7 +20,9 @@ function DashboardHeader({ action }) {
       })
       .then((result) => {
         if (result.data === 'success') localStorage.clear()
-        window.location.assign('http://localhost:3000/dashboard')
+        window.location.assign(
+          'https://fund-my-laptop-2001.netlify.app/dashboard',
+        )
       })
       .catch((error) => {
         console.log(error)

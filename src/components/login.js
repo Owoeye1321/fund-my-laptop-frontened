@@ -22,7 +22,9 @@ function Login() {
     if (response.data.message === 'success') {
       localStorage.setItem('accessToken', response.data.accessToken)
       localStorage.setItem('refreshToken', response.data.refreshToken)
-      window.location.assign('http://localhost:3000/dashboard')
+      window.location.assign(
+        'https://fund-my-laptop-2001.netlify.app/dashboard',
+      )
     } else {
       setError(response.data.message)
     }
@@ -37,7 +39,9 @@ function Login() {
       },
     })
     if (check.data.message !== 'unauthorized')
-      window.location.assign('http://localhost:3000/dashboard')
+      window.location.assign(
+        'https://fund-my-laptop-2001.netlify.app/dashboard',
+      )
   }, [])
   return (
     <motion.div

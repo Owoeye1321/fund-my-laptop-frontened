@@ -74,7 +74,7 @@ function Admin() {
           })
       })
       .catch(async (error) => {
-        window.location.assign('http://localhost:3000/login')
+        window.location.assign('https://fund-my-laptop-2001.netlify.app/login')
       })
   }, [uploads])
   //console.log(uploads)

@@ -27,7 +27,7 @@ function PaystackPayment() {
   // you can call this function anything
   const onSuccess = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
-    window.location.assign('http://localhost:3000/')
+    window.location.assign('https://fund-my-laptop-2001.netlify.app/')
   }
 
   // you can call this function anything

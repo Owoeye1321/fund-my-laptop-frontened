@@ -27,7 +27,9 @@ function Signup() {
     if (result.data.message === 'success') {
       localStorage.setItem('accessToken', result.data.accessToken)
       localStorage.setItem('refreshToken', result.data.refreshToken)
-      window.location.assign('http://localhost:3000/dashboard')
+      window.location.assign(
+        'https://fund-my-laptop-2001.netlify.app/dashboard',
+      )
     } else {
       setError(result.data.message)
     }
