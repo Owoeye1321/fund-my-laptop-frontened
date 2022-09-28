@@ -21,7 +21,7 @@ function Forms() {
   const onSubmit = async (e) => {
     e.preventDefault()
     await axios
-      .post('/api/contact', { data })
+      .post('https://fund-my-laptop-2001.herokuapp.com/api/contact', { data })
       .then((result) => {
         console.log(result.data)
       })
