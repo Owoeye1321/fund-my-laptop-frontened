@@ -29,6 +29,9 @@ function PaystackPayment() {
   // you can call this function anything
   const onSuccess = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
+    alert(
+      'This payment integration is a testing function. However, the end user paystack acount is not verified and you might not be debited from your real acount',
+    )
     window.location.assign('https://fund-my-laptop-2001.netlify.app/')
   }
 
